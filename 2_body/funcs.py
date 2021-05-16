@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 def plot2(ax0, ay0, name0, ax1, ay1, name1, axm0, aym0, axm1, aym1):
     fig, ax = plt.subplots(1, 2, figsize=(12, 5.5))
@@ -17,11 +18,9 @@ def plot2(ax0, ay0, name0, ax1, ay1, name1, axm0, aym0, axm1, aym1):
     ax[1].legend()
 
 
-def f_3(dat):
+def f_2(dat, coef):
     F0 = (dat[:, 2]-dat[:, 0])/((dat[:, 2]-dat[:, 0])**2+(dat[:, 3]-dat[:, 1])**2)**(3/2)
     F1 = (dat[:, 3]-dat[:, 1])/((dat[:, 2]-dat[:, 0])**2+(dat[:, 3]-dat[:, 1])**2)**(3/2)
-    F2 = (dat[:, 4]-dat[:, 0])/((dat[:, 4]-dat[:, 0])**2+(dat[:, 5]-dat[:, 1])**2)**(3/2)
-    F3 = (dat[:, 5]-dat[:, 1])/((dat[:, 4]-dat[:, 0])**2+(dat[:, 5]-dat[:, 1])**2)**(3/2)
-    F4 = (dat[:, 4]-dat[:, 2])/((dat[:, 4]-dat[:, 2])**2+(dat[:, 5]-dat[:, 3])**2)**(3/2)
-    F5 = (dat[:, 5]-dat[:, 3])/((dat[:, 4]-dat[:, 2])**2+(dat[:, 5]-dat[:, 3])**2)**(3/2)
-    return F0, F1, F2, F3, F4, F5
+    F = np.array([F0, F1])
+    a = np.dot(coef, F)
+    return a
