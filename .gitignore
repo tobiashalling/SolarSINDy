@@ -8,3 +8,5 @@
 3_body/SJS_dat/1000y0.001dt/JSSacc_1mil.npy
 3_body/SJS_dat/1000y0.001dt/JSSpos_1mil.npy
 3_body/SJS_dat/1000y0.001dt/JSSvel_1mil.npy
+Mass/2pos.npy
+*.npy
