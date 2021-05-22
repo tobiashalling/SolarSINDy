@@ -24,3 +24,8 @@ def f_2(dat, coef):
     F = np.array([F0, F1])
     a = np.dot(coef, F)
     return a
+
+def perdiff(a1, a2):
+    perdiff = (np.abs(a2 - a1)/(a2 + a1)/2)*100
+    return perdiff
+    

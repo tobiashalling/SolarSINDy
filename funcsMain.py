@@ -3,6 +3,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pysindy.feature_library import CustomLibrary
 
+def f_2(dat, coef):
+    F0 = (dat[:, 2]-dat[:, 0])/((dat[:, 2]-dat[:, 0])**2+(dat[:, 3]-dat[:, 1])**2)**(3/2)
+    F1 = (dat[:, 3]-dat[:, 1])/((dat[:, 2]-dat[:, 0])**2+(dat[:, 3]-dat[:, 1])**2)**(3/2)
+    F = np.array([F0, F1])
+    a = np.dot(coef, F)
+    return a
+
 def plot2(ax0, ay0, name0, ax1, ay1, name1, axm0, aym0, axm1, aym1):
     fig, ax = plt.subplots(1, 2, figsize=(12, 5.5))
     fig.suptitle('Accelerations')
@@ -51,7 +58,7 @@ def sindy(n, p, a, thres):
         model.print(lhs=["x1''", "y1''", "x2''", "y2''"])
         coef = model.coefficients()
         print(coef)   
-            
+        return coef   
     elif n == 3:
         functions = [lambda x0, y0, x1, y1, x2, y2: (x1-x0)/((x1-x0)**2+(y1-y0)**2)**(3/2),
                      lambda x0, y0, x1, y1, x2, y2: (y1-y0)/((x1-x0)**2+(y1-y0)**2)**(3/2),
@@ -73,6 +80,11 @@ def sindy(n, p, a, thres):
         model.print(lhs=["x1''","y1''","x2''","y2''","x3''","y3''"])
         coef = model.coefficients()
         print(coef)
-        
+        return coef
     else: 
         print('Number of bodies not supported')
+        
+def perdiff(a1, a2):
+    perdiff = (np.abs(a2 - a1)/(a2 + a1)/2)*100
+    return perdiff
+    
