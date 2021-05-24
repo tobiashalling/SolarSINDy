@@ -76,3 +76,13 @@ def sindy(n, p, a, thres):
         
     else: 
         print('Number of bodies not supported')
+
+        
+        
+def perdiff(a1, a2):
+    perdiff = (np.abs(a2 - a1)/(a2 + a1)/2)*100
+    return perdiff
+
+def err(aTrue, aEst):
+    error = (np.mean((aEst-aTrue)**2))/(np.mean(aTrue**2))
+    return error
