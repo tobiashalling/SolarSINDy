@@ -10,15 +10,19 @@ def f_2(dat, coef):
     a = np.dot(coef, F)
     return a
 
-def plot2(ax0, ay0, name0, ax1, ay1, name1, axm0, aym0, axm1, aym1):
+def plot2(ax0, ay0, name0, ax1, ay1, name1, axm0, aym0, axm1, aym1, err0='N/a', err1='N/a'):
     fig, ax = plt.subplots(1, 2, figsize=(12, 5.5))
     fig.suptitle('Accelerations')
     # Plots the planets
     ax[0].plot(ax0, ay0, label='Data {}'.format(name0), color='royalblue')
     ax[0].plot(axm0, aym0, label='SINDy {}'.format(name0), color='darkorange')
+    ax[0].plot(0, 0, label='Error = {}'.format(err0), color='white')
+    ax[0].set_title('{}'.format(name0))
     
     ax[1].plot(ax1, ay1, label='Data {}'.format(name1), color='royalblue')
     ax[1].plot(axm1, aym1, label='SINDy {}'.format(name1), color='darkorange')
+    ax[1].plot(0, 0, label='Error = {}'.format(err1), color='white')
+    ax[1].set_title('{}'.format(name1))
     
     ax[0].set(xlabel='x', ylabel='y')
     ax[1].set(xlabel='x', ylabel='y')
@@ -52,10 +56,11 @@ def sindy(n, p, a, thres):
         
         model = ps.SINDy(
                 feature_library = lib_custom, 
-                optimizer=optimizer)
+                optimizer=optimizer,
+                feature_names = ['x0', 'y0', 'x1', 'y1', 'x2', 'y2'])
     
         model.fit(p, t=t, x_dot=a)
-        model.print(lhs=["x1''", "y1''", "x2''", "y2''"])
+        model.print(lhs=["x0''","y0''","x1''","y1''"])
         coef = model.coefficients()
         print(coef)   
         return coef   
@@ -74,10 +79,11 @@ def sindy(n, p, a, thres):
         
         model = ps.SINDy( 
                 feature_library = lib_custom, 
-                optimizer=optimizer)
+                optimizer=optimizer,
+                feature_names = ['x0', 'y0', 'x1', 'y1', 'x2', 'y2'])
         
         model.fit(p, t=t, x_dot=a)
-        model.print(lhs=["x1''","y1''","x2''","y2''","x3''","y3''"])
+        model.print(lhs=["x0''","y0''","x1''","y1''","x2''","y2''"])
         coef = model.coefficients()
         print(coef)
         return coef
